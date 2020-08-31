@@ -18,6 +18,10 @@ package describe
 
 import (
 	"fmt"
+	"io"
+
+	"github.com/juju/ansiterm"
+
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 )
@@ -48,6 +52,21 @@ type ResourceDescriber interface {
 // describer to control what is printed.
 type DescriberSettings struct {
 	ShowEvents bool
+	Color      bool
+}
+
+func (ds *DescriberSettings) NewPrefixWriter(out io.Writer) PrefixWriter {
+	if ds.Color {
+		// TODO: localize and simplify color scheme
+		return NewColoredWriter(out, []kvStyle{
+			{ansiterm.Foreground(ansiterm.Blue), ansiterm.Foreground(ansiterm.Red), ansiterm.Foreground(ansiterm.Blue).SetStyle(ansiterm.Underline)},
+			{ansiterm.Foreground(ansiterm.BrightBlue), ansiterm.Foreground(ansiterm.BrightRed), ansiterm.Foreground(ansiterm.BrightBlue).SetStyle(ansiterm.Underline)},
+			{ansiterm.Foreground(ansiterm.Blue), ansiterm.Foreground(ansiterm.BrightMagenta), ansiterm.Foreground(ansiterm.Blue).SetStyle(ansiterm.Underline)},
+			{ansiterm.Foreground(ansiterm.BrightBlue), ansiterm.Foreground(ansiterm.Magenta), ansiterm.Foreground(ansiterm.BrightBlue).SetStyle(ansiterm.Underline)},
+		})
+	} else {
+		return NewPrefixWriter(out)
+	}
 }
 
 // ObjectDescriber is an interface for displaying arbitrary objects with extra

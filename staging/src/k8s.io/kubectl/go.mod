@@ -20,8 +20,12 @@ require (
 	github.com/google/go-cmp v0.4.0
 	github.com/googleapis/gnostic v0.4.1
 	github.com/jonboulle/clockwork v0.1.0
+	github.com/juju/ansiterm v0.0.0-20180109212912-720a0952cc2a
 	github.com/liggitt/tabwriter v0.0.0-20181228230101-89fcab3d43de
 	github.com/lithammer/dedent v1.1.0
+	github.com/lunixbochs/vtclean v1.0.0 // indirect
+	github.com/mattn/go-colorable v0.0.9 // indirect
+	github.com/mattn/go-isatty v0.0.4 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.0
 	github.com/moby/term v0.0.0-20200312100748-672ec06f55cd
 	github.com/onsi/ginkgo v1.11.0

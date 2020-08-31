@@ -1,0 +1,40 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "attribute.go",
+        "color.go",
+        "context.go",
+        "doc.go",
+        "style.go",
+        "tabwriter.go",
+        "terminal.go",
+        "writer.go",
+    ],
+    importmap = "k8s.io/kubernetes/vendor/github.com/juju/ansiterm",
+    importpath = "github.com/juju/ansiterm",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/github.com/juju/ansiterm/tabwriter:go_default_library",
+        "//vendor/github.com/mattn/go-colorable:go_default_library",
+        "//vendor/github.com/mattn/go-isatty:go_default_library",
+    ],
+)
+
+filegroup(
+    name = "package-srcs",
+    srcs = glob(["**"]),
+    tags = ["automanaged"],
+    visibility = ["//visibility:private"],
+)
+
+filegroup(
+    name = "all-srcs",
+    srcs = [
+        ":package-srcs",
+        "//vendor/github.com/juju/ansiterm/tabwriter:all-srcs",
+    ],
+    tags = ["automanaged"],
+    visibility = ["//visibility:public"],
+)
